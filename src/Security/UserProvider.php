@@ -32,8 +32,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
             "PASSWORD" =>  $_ENV['MYSQL_PASSWORD'],
             "DATABASE" =>  $_ENV['MYSQL_DATABASE']
         ]);
-        $data_mysql = $db_mysql->query($db_mysql_connexion, "SELECT * FROM user WHERE email= 'yorikmoreau@gmail.com3'");
-        print_r($data_mysql[0]['password']);
+        $data_mysql = $db_mysql->query($db_mysql_connexion, "SELECT * FROM user WHERE email= 'yorikmoreau@gmail.com'");
         $user = new User();
         $user->setId($data_mysql[0]['id']);
         $user->setEmail($data_mysql[0]['email']);
