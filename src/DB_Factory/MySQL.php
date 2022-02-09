@@ -40,8 +40,11 @@ class MySQL implements DBInterface
         $response = null;
         //Check if records exist
         $search = mysqli_query($connexion, $query);
-        foreach ($search as $row ) {
-            $response[] = $row;
+
+        if(is_object($search)){
+            foreach ($search as $row ) {
+                $response[] = $row;
+            }
         }
 
         return $response;

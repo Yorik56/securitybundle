@@ -59,7 +59,7 @@ class RegistrationController extends AbstractController
 //            $stmt->bindParam(':email', $user->getEmail());
 //            $stmt->bindParam(':password', $user->getPassword());
 //            $stmt->bindParam(':roles', $user->getRoles());
-            $data = $db_mysql->query($db_mysql_connexion, 'INSERT INTO user ('.$user->getEmail().', '.$user->getPassword().', [\"ROLE_USER\"])');
+            $data = $db_mysql->query($db_mysql_connexion, 'INSERT INTO `user` (`id`, `email`, `roles`, `password`) VALUES (NULL, "yorikmoreau@gmail.com", "[]", "$2y$13$dggjHWMEeZSCqG8nrUgute7A4XgXJuNvtLkLLBUF16I.ERYbX2nzG")');
 
 
 
