@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\DB_Factory\DBFactory;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +18,16 @@ class RegistrationController extends AbstractController
         // ... e.g. get the user data from a registration form
         $user = new User();
         $plaintextPassword = "";
-
         // hash the password (based on the security.yaml config for the $user class)
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
             $plaintextPassword
         );
         $user->setPassword($hashedPassword);
-
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         //GET DATABASE CONNEXION
         $db_mysql = DBFactory::create('mysql');
@@ -53,17 +50,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
             // SAVE DATA
-//            $stmt = $dbh->prepare("INSERT INTO user (email, password, roles) VALUES (:email, :password, :roles)");
-//            $stmt->bindParam(':email', $user->getEmail());
-//            $stmt->bindParam(':password', $user->getPassword());
-//            $stmt->bindParam(':roles', $user->getRoles());
+            // $stmt = $dbh->prepare("INSERT INTO user (email, password, roles) VALUES (:email, :password, :roles)");
+            // $stmt->bindParam(':email', $user->getEmail());
+            // $stmt->bindParam(':password', $user->getPassword());
+            // $stmt->bindParam(':roles', $user->getRoles());
             $data = $db_mysql->query($db_mysql_connexion, 'INSERT INTO `user` (`id`, `email`, `roles`, `password`) VALUES (NULL, "yorikmoreau@gmail.com", "[]", "$2y$13$dggjHWMEeZSCqG8nrUgute7A4XgXJuNvtLkLLBUF16I.ERYbX2nzG")');
-
-
-
-            return $this->redirectToRoute('_profiler_home');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('registration/register.html.twig', [
